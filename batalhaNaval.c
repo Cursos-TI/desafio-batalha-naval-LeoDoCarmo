@@ -2,6 +2,7 @@
 
 #define TAMANHO_TABULEIRO 10
 #define TAMANHO_NAVIO 3
+#define TAMANHO_HABILIDADE 5
 
 int main() {
     // Declaração e inicialização do tabuleiro com água (0)
@@ -68,6 +69,66 @@ int main() {
     }else{
         printf("Erro: Navio diagonal 2 fora dos limites do tabuleiro.\n");
         return 1;
+    }
+
+    // Matrizes de habilidades
+    int cone[TAMANHO_HABILIDADE][TAMANHO_HABILIDADE] = {
+        {0, 0, 1, 0, 0},
+        {0, 1, 1, 1, 0},
+        {1, 1, 1, 1, 1},
+        {0, 0, 0, 0, 0},
+        {0, 0, 0, 0, 0}
+    };
+
+    int cruz[TAMANHO_HABILIDADE][TAMANHO_HABILIDADE] = {
+        {0, 0, 1, 0, 0},
+        {0, 0, 1, 0, 0},
+        {1, 1, 1, 1, 1},
+        {0, 0, 1, 0, 0},
+        {0, 0, 1, 0, 0}
+    };
+
+    int octaedro[TAMANHO_HABILIDADE][TAMANHO_HABILIDADE] = {
+        {0, 0, 1, 0, 0},
+        {0, 1, 1, 1, 0},
+        {1, 1, 1, 1, 1},
+        {0, 1, 1, 1, 0},
+        {0, 0, 1, 0, 0}
+    };
+
+    // Ponto de origem das habilidades
+    int cone_linha = 0;
+    int cone_coluna = 4;
+    int cruz_linha = 5;
+    int cruz_coluna = 5;
+    int octaedro_linha = 7;
+    int octaedro_coluna = 2;
+
+    // Sobreposição das habilidades no tabuleiro
+    for (int i = 0; i < TAMANHO_HABILIDADE; i++) {
+        for (int j = 0; j < TAMANHO_HABILIDADE; j++) {
+            if (cone[i][j] == 1 &&
+                cone_linha - TAMANHO_HABILIDADE / 2 + i >= 0 &&
+                cone_linha - TAMANHO_HABILIDADE / 2 + i < TAMANHO_TABULEIRO &&
+                cone_coluna - TAMANHO_HABILIDADE / 2 + j >= 0 &&
+                cone_coluna - TAMANHO_HABILIDADE / 2 + j < TAMANHO_TABULEIRO) {
+                tabuleiro[cone_linha - TAMANHO_HABILIDADE / 2 + i][cone_coluna - TAMANHO_HABILIDADE / 2 + j] = 5;
+            }
+            if (cruz[i][j] == 1 &&
+                cruz_linha - TAMANHO_HABILIDADE / 2 + i >= 0 &&
+                cruz_linha - TAMANHO_HABILIDADE / 2 + i < TAMANHO_TABULEIRO &&
+                cruz_coluna - TAMANHO_HABILIDADE / 2 + j >= 0 &&
+                cruz_coluna - TAMANHO_HABILIDADE / 2 + j < TAMANHO_TABULEIRO) {
+                tabuleiro[cruz_linha - TAMANHO_HABILIDADE / 2 + i][cruz_coluna - TAMANHO_HABILIDADE / 2 + j] = 5;
+            }
+            if (octaedro[i][j] == 1 &&
+                octaedro_linha - TAMANHO_HABILIDADE / 2 + i >= 0 &&
+                octaedro_linha - TAMANHO_HABILIDADE / 2 + i < TAMANHO_TABULEIRO &&
+                octaedro_coluna - TAMANHO_HABILIDADE / 2 + j >= 0 &&
+                octaedro_coluna - TAMANHO_HABILIDADE / 2 + j < TAMANHO_TABULEIRO) {
+                tabuleiro[octaedro_linha - TAMANHO_HABILIDADE / 2 + i][octaedro_coluna - TAMANHO_HABILIDADE / 2 + j] = 5;
+            }
+        }
     }
 
     // Exibição do tabuleiro
